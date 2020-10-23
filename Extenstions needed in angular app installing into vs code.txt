@@ -1,0 +1,5 @@
+Extenstions need in Angular App Installing on VS.Code
+=====================================================
+1-Angular Language Service
+2-Angular Snippets
+3-Bracket Pair Colorizer 
