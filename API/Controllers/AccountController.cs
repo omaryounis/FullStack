@@ -11,6 +11,7 @@ using DatingApp.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Services.Interfaces;
 
 namespace API.Controllers
 {
@@ -18,13 +19,16 @@ namespace API.Controllers
     public class AccountController : BaseApiController
     {
         private readonly DataContext _dataContext;
-        public AccountController(DataContext dataContext)
+        private readonly IServiceToken _token;
+
+        public AccountController(DataContext dataContext,IServiceToken token)
         {
             _dataContext = dataContext;
+            _token = token;
         }
         
         [HttpPost("register")]
-        public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
             if (await IsUniqueness(registerDto.UserName))
                 return BadRequest("User is taken");
@@ -37,10 +41,13 @@ namespace API.Controllers
             };
             _dataContext.Add(appUser);
             await _dataContext.SaveChangesAsync();
-            return appUser;
+            return new UserDto {
+                UserName = appUser.UserName,
+                Token = _token.CreateToken(appUser)
+            };
         }
         [HttpPost("login")]
-        public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
             var User = _dataContext.Users.SingleOrDefault(x => x.UserName == loginDto.UserName);
             if (User == null)
@@ -52,7 +59,11 @@ namespace API.Controllers
                 if (HashedPassword[i] != User.PasswordHash[i])
                     return Unauthorized("Invalid Password");
             }
-            return User;
+            return new UserDto
+            {
+                UserName = User.UserName,
+                Token = _token.CreateToken(User)
+            };
 
         }
         private async Task<bool> IsUniqueness(string UserName)
