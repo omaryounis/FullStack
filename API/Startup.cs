@@ -18,6 +18,7 @@ using Services.Classes;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Extentions;
 
 namespace API
 {
@@ -33,25 +34,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IServiceToken, ServiceToken>();
-            services.AddDbContext<DataContext>(options =>
-            {
-                options.UseSqlServer(_Configuration.GetConnectionString("DefualtConnection"));
-            });
-
+            ApplicationServiceExtensions.AddApplicationService(services, _Configuration);
             services.AddControllers();
             services.AddCors();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
-                {
-                    options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
-                    {
-                        ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_Configuration["TokenKey"])),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
+            IdentityServiceExtenstions.AddIdentityService(services, _Configuration);
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

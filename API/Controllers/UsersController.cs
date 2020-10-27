@@ -21,16 +21,17 @@ namespace API.Controllers
 
         [HttpGet]
         [AllowAnonymous]
+        [HttpGet("GetUsers")]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
         {
-           return await _dataContext.Users.ToListAsync();
+            return await _dataContext.Users.ToListAsync();
         }
 
-        [HttpGet("{Id}")]
+        [HttpGet("GetUser/{id}")]
         [Authorize]
-        public async Task<ActionResult<AppUser>> GetUser(int Id)
+        public async Task<ActionResult<AppUser>> GetUser(int id)
         {
-            return await _dataContext.Users.FindAsync(Id);
+            return await _dataContext.Users.FindAsync(id);
         }
     }
 }
