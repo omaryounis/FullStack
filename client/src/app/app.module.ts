@@ -14,7 +14,6 @@ import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxFontAwesomeModule } from 'ngx-font-awesome';
-import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -33,8 +32,7 @@ import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toas
     BsDropdownModule.forRoot(),
     FormsModule,
     AppRoutingModule,
-    NgxFontAwesomeModule,
-    ToastNoAnimationModule.forRoot(),
+    NgxFontAwesomeModule
   ],
   providers: [],
   bootstrap: [AppComponent]
