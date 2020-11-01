@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import {HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -29,6 +30,7 @@ import { NgxFontAwesomeModule } from 'ngx-font-awesome';
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     FormsModule,
     AppRoutingModule,

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AccountService } from '../_services/account.service';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,10 @@ export class HomeComponent implements OnInit {
  
   isRegister:boolean=false;
   
-  constructor() { 
+  constructor(private _accountService:AccountService) { 
   }
   ngOnInit(): void {
-
+    
   }
   register(){
     this.isRegister=true;
@@ -25,4 +26,5 @@ export class HomeComponent implements OnInit {
   cancelRegister(){
     this.isRegister=false;
   }
+ 
 }
