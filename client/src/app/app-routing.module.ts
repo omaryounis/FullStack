@@ -10,11 +10,11 @@ import { AuthGuard } from './_gaurds/auth.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path:'member-list',component:MemberListComponent,canActivate:[AuthGuard]},
-  {path:'member-detail',component:MemberDetailComponent},
+  {path:'**',component:HomeComponent,pathMatch:'full'},
+  {path:'member-list',component:MemberListComponent},
+  {path:'member-list/:id',component:MemberDetailComponent},
   {path:'list',component:ListsComponent},
-  {path:'message',component:MessagesComponent},
-  {path:'**',component:HomeComponent,pathMatch:'full'}
+  {path:'message',component:MessagesComponent}
 ];
 
 @NgModule({

@@ -8,23 +8,23 @@ import { AccountService } from '../_services/account.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  /**
-   *
-   */
+  
   constructor( private _accountService:AccountService) { 
     
   }
   canActivate(): any {
-    
-    this._accountService.currentUser$.pipe(
-      map((user:any)=>{
-        if(user)
-          return true;
-          else
-          alert('ivalid reques');
-          return false;
-      })
-    )
+    // this._accountService.currentUser$.pipe(
+    //   map((user:any)=>{
+    //     if(user){
+    //       return true;
+    //     }
+    //       else
+    //       alert('ivalid reques');
+    //   })
+    // )
+    // .subscribe(res=>{
+    //   alert(res)
+    // })
   }
   
 }
