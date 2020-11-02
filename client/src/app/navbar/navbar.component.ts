@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AccountService } from '../_services/account.service';
+import { Observable } from 'rxjs';
+import { User } from '../_models/User';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -7,24 +10,40 @@ import { AccountService } from '../_services/account.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  isLogged:boolean;
   loginModel:any={};
-  constructor(private _accountService : AccountService) { }
+  currentUser$:Observable<User>;
+  constructor(private _accountService : AccountService,private _route:Router) { }
 
   ngOnInit(): void {
+    this.currentUser$ = this._accountService.currentUser$;
   }
+
   login(){
-    console.log(this._accountService.login(this.loginModel).subscribe(response=>
-    {
-        console.log(response);
-        this.isLogged=true;
-    },error=>{
-        console.log(error);
-        this.isLogged=false;
-      })
-    )
+          console.log(this._accountService.login(this.loginModel).subscribe(response=>
+          {
+            this._route.navigateByUrl('/member-list');
+              console.log(response);
+              
+            
+          },error=>{
+              console.log(error);
+            })
+          )
   }
+
   logout(){
-    this.isLogged=false;
+  
+          this._accountService.logout();
+          this._route.navigateByUrl('/')
+          
   }
+  // getCurrentUser(){
+  //  this._accountService.currentUser$.subscribe(res=>{
+
+  //     this.isLogged=!!res;
+  //   },error=>{
+  //     console.log('error');
+  //   });
+    
+  // }
 }

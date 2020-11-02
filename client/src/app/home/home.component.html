@@ -1,0 +1,13 @@
+<div *ngIf="!isRegister">
+<button class="btn btn-primary" (click)="register()">Register</button>
+</div>
+
+<div *ngIf="isRegister">
+    
+    <app-register 
+    
+    (isRegistred)="cancelRegister()"
+    ></app-register>
+    
+
+</div>
