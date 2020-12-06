@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { HttpClient, ɵangular_packages_common_http_http_a } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import { User } from '../_models/User';
 import { ReplaySubject } from 'rxjs';

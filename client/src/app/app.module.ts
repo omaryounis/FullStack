@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpClientModule } from '@angular/common/http';
+import {HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -13,7 +13,9 @@ import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
 import { NgxFontAwesomeModule } from 'ngx-font-awesome';
-import { IntialModule } from './intial.module';
+import { IntialModule } from './intial.module'; 
+import {TestErrorComponent} from './errors/test-error.component';
+import { ErrorInterceptor } from './_interceptors/error.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +25,8 @@ import { IntialModule } from './intial.module';
     MemberListComponent,
     MemberDetailComponent,
     ListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    TestErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,9 @@ import { IntialModule } from './intial.module';
     NgxFontAwesomeModule,
     IntialModule
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS,useClass:ErrorInterceptor , multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

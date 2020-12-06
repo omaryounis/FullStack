@@ -6,6 +6,7 @@ import { MemberDetailComponent } from './members/member-detail/member-detail.com
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AuthGuard } from './_gaurds/auth.guard';
+import { TestErrorComponent } from './errors/test-error.component';
 
 const routes: Routes = [
   {path:'',component:HomeComponent},
@@ -20,7 +21,8 @@ const routes: Routes = [
         {path:'list',component:ListsComponent},
         {path:'message',component:MessagesComponent}
     ]
-  }
+  },
+  {path:'testerror',component : TestErrorComponent}
 ];
 
 @NgModule({
